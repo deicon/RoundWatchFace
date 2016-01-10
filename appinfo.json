@@ -1,18 +1,26 @@
 {
-  "uuid": "e2bf402c-6691-44cf-86e3-7a865cf9d49c",
-  "shortName": "RoundWatchFace",
-  "longName": "RoundWatchFace",
-  "companyName": "deicon it solutions",
-  "versionLabel": "1.0",
-  "sdkVersion": "3",
-  "targetPlatforms": ["aplite", "basalt", "chalk"],
-  "watchapp": {
-    "watchface": true
-  },
-  "appKeys": {
-    "dummy": 0
-  },
-  "resources": {
-    "media": []
-  }
+    "appKeys": {
+        "dummy": 0
+    },
+    "capabilities": [
+        ""
+    ],
+    "companyName": "MakeAwesomeHappen",
+    "longName": "WatchFace",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "WatchFace",
+    "targetPlatforms": [
+        "aplite",
+        "basalt",
+        "chalk"
+    ],
+    "uuid": "e2bf402c-6691-44cf-86e3-7a865cf9d49c",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
 }

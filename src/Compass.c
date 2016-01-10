@@ -28,6 +28,7 @@ void deinit_compass_service() {
 	layer_destroy(s_path_layer);
 	gpath_destroy(s_needle_south);
 	gpath_destroy(s_needle_north);
+  compass_service_unsubscribe();
 }
 
 void compass_callback(CompassHeadingData heading_data) {

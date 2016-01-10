@@ -151,13 +151,14 @@ static void main_window_load(Window *window) {
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
   
 
-  layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
+  
   layer_add_child(window_layer, s_draw_layer);
+  layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
   // register timetick handler
   tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
   //s_app_timer = app_timer_register(TIMER_INTERVALL,app_timer_handler,window);
 
-  Layer *batteryLayer = init_battery_watcher(GRect(1, 5, 30, 20));
+  Layer *batteryLayer = init_battery_watcher(GRect(PBL_IF_ROUND_ELSE(30,1), PBL_IF_ROUND_ELSE(19,5), 35, 20));
   if (batteryLayer != NULL) {
     layer_add_child(window_layer, batteryLayer);
   }
