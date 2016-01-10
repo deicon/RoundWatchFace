@@ -1,8 +1,8 @@
 {
   "uuid": "e2bf402c-6691-44cf-86e3-7a865cf9d49c",
-  "shortName": "WatchFace",
-  "longName": "WatchFace",
-  "companyName": "MakeAwesomeHappen",
+  "shortName": "RoundWatchFace",
+  "longName": "RoundWatchFace",
+  "companyName": "deicon it solutions",
   "versionLabel": "1.0",
   "sdkVersion": "3",
   "targetPlatforms": ["aplite", "basalt", "chalk"],
