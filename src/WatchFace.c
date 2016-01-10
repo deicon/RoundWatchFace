@@ -43,8 +43,7 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
   GPoint center = grect_center_point(&bounds);
   
   GPoint secondHand;
-  //GPoint hourHand;
-  //GPoint minuteHand;
+  GPoint hourHand1, hourHand2;
   
   time_t now = time(NULL);
   struct tm* t = localtime(&now); 
@@ -52,7 +51,7 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
   int16_t ms = time_ms(NULL, NULL);
   
   const int16_t second_hand_length = PBL_IF_ROUND_ELSE((bounds.size.w / 2) - 19, (bounds.size.w / 2) - 2);
-  //const int16_t minute_hand_length = PBL_IF_ROUND_ELSE((bounds.size.w / 2) - 28, bounds.size.w / 2);
+  const int16_t hour_tick_length = PBL_IF_ROUND_ELSE((bounds.size.w / 2) - 28, bounds.size.w / 2);
   //const int16_t hour_hand_length = PBL_IF_ROUND_ELSE((bounds.size.w / 2) - 60, bounds.size.w / 2);
   
   calculate_pointer_end((t->tm_sec*100)+ms/10, second_hand_length, &center, &secondHand, 60*100, 0);    
@@ -81,6 +80,16 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
   graphics_draw_line(ctx, secondHand, center);
 */
 
+  // draw hour lines
+  int hours = clock_is_24h_style() ? 24 : 12;
+  for (int h = 0; h < hours; h++) {
+    calculate_pointer_end(h, hour_tick_length, &center, &hourHand1, hours, 0);
+    calculate_pointer_end(h, hour_tick_length-7, &center, &hourHand2, hours, 0);
+    graphics_context_set_fill_color(ctx, GColorWhite);
+    graphics_context_set_stroke_color(ctx, GColorWhite);
+    graphics_draw_line(ctx, hourHand1, hourHand2);
+  }
+
   // draw second ticks 
   for (int i = 0; i < t->tm_sec; i++) {
     calculate_pointer_end(i, second_hand_length, &center, &secondHand, 60, 0);
@@ -88,7 +97,7 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
     graphics_fill_rect(ctx, GRect(secondHand.x, secondHand.y, 3, 3), 0, GCornerNone);
   }
   
-   // dot in the middle
+  // dot in the middle
   graphics_context_set_fill_color(ctx, GColorBlack);
   graphics_fill_rect(ctx, GRect(bounds.size.w / 2 - 1, bounds.size.h / 2 - 1, 3, 3), 0, GCornerNone);
 }
@@ -165,7 +174,7 @@ static void main_window_load(Window *window) {
 
   init_accel_tap_handler();
 
-  Layer *compassLayer = init_compass_service(GRect(bounds.size.w / 2 , bounds.size.h - 30, 40, 40));
+  Layer *compassLayer = init_compass_service(GRect(bounds.size.w / 2 , bounds.size.h / 2 + 30, 90, 90));
   if (compassLayer != NULL) {
     layer_add_child(window_layer, compassLayer);  
   }
