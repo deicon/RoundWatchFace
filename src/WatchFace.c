@@ -3,6 +3,7 @@
 #include "AccelWatcher.h"
 #include "Compass.h"
 #include "BluetoothWatcher.h" 
+#include "DialogMessageWindow.h"
 
 static Window *s_main_window;
 static Layer *s_draw_layer;
@@ -183,8 +184,6 @@ static void main_window_load(Window *window) {
     layer_add_child(window_layer, batteryLayer);
   }
 
-  init_accel_tap_handler();
-
   Layer *compassLayer = init_compass_service(GRect(bounds.size.w / 2 , bounds.size.h / 2 + 30, 90, 90));
   if (compassLayer != NULL) {
     layer_add_child(window_layer, compassLayer);  
@@ -194,10 +193,8 @@ static void main_window_load(Window *window) {
   if (btLayer != NULL) {
     layer_add_child(window_layer, btLayer);  
   }
-
-
   
-  
+
 }
 
 static void main_window_unload(Window *window) {
@@ -226,8 +223,6 @@ static void init() {
 static void deinit() {
   window_destroy(s_main_window);
 }
-
-
 
 int main(void) {
   init();

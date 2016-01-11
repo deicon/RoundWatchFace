@@ -14,7 +14,8 @@
                 "file": "images/Warning-Shield-24.png",
                 "name": "WARNING",
                 "targetPlatforms": [
-                    "aplite"
+                    "aplite",
+                    "basalt"
                 ],
                 "type": "bitmap"
             },

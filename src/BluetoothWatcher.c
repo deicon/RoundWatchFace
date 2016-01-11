@@ -1,4 +1,5 @@
 #include "BluetoothWatcher.h"
+#include "DialogMessageWindow.h"
 
 Layer* init_bluetooth_layer(GRect bounds) {
 	s_bt_bitmap = gbitmap_create_with_resource(RESOURCE_ID_BLUETOOTH_APLITE);
@@ -24,8 +25,17 @@ void handle_connection_state(bool connected) {
 	if (connected) {
 		bitmap_layer_set_bitmap(s_bluetooth_layer, s_bt_bitmap);
 		vibes_double_pulse();
+		dialog_message_window_pop();
 	} else {
 		bitmap_layer_set_bitmap(s_bluetooth_layer, s_plane_bitmap);
 		vibes_long_pulse();
+		dialog_message_window_push();
+
+		// if no wrist shake registered within 5 sec. remove window
+		app_timer_register(5000, app_timer_callback, NULL);
 	}
+}
+
+void app_timer_callback(void *data) {
+	dialog_message_window_pop();
 }

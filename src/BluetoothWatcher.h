@@ -14,3 +14,5 @@ Layer* init_bluetooth_layer(GRect bounds);
 void deinit_bluetooth_layer();
 
 void handle_connection_state(bool connected);
+
+void app_timer_callback(void *data);

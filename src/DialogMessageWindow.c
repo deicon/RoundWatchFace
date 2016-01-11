@@ -3,6 +3,7 @@
  */
 
 #include "DialogMessageWindow.h"
+#include "AccelWatcher.h"
 
 static Window *s_main_window;
 static TextLayer *s_label_layer;
@@ -37,7 +38,7 @@ static void window_load(Window *window) {
   layer_set_update_proc(s_background_layer, background_update_proc);
   layer_add_child(window_layer, s_background_layer);
 
-  s_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_WARNING);
+  s_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_WARNING );
   GRect bitmap_bounds = gbitmap_get_bounds(s_icon_bitmap);
 
   s_icon_layer = layer_create(PBL_IF_ROUND_ELSE(
@@ -53,6 +54,8 @@ static void window_load(Window *window) {
   text_layer_set_text_alignment(s_label_layer, PBL_IF_ROUND_ELSE(GTextAlignmentCenter, GTextAlignmentLeft));
   text_layer_set_font(s_label_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
   layer_add_child(window_layer, text_layer_get_layer(s_label_layer));
+
+  init_accel_tap_handler(dialog_message_window_pop);
 }
 
 static void window_unload(Window *window) {
@@ -64,6 +67,7 @@ static void window_unload(Window *window) {
   gbitmap_destroy(s_icon_bitmap);
 
   window_destroy(window);
+  deinit_accel_tap_handler();
   s_main_window = NULL;
 }
 
@@ -115,5 +119,12 @@ void dialog_message_window_push() {
     });
   }
   window_stack_push(s_main_window, true);
+  
+}
+
+void dialog_message_window_pop() {
+  if (window_stack_contains_window(s_main_window)) {
+    window_stack_remove(s_main_window, true);
+  }
 }
 
