@@ -5,8 +5,8 @@
     "capabilities": [
         ""
     ],
-    "companyName": "deicon it solutions",
-    "longName": "24h Round WatchFace",
+    "companyName": "MakeAwesomeHappen",
+    "longName": "WatchFace",
     "projectType": "native",
     "resources": {
         "media": [
@@ -22,10 +22,11 @@
         ]
     },
     "sdkVersion": "3",
-    "shortName": "24HWatchface",
+    "shortName": "WatchFace",
     "targetPlatforms": [
         "aplite",
-        "basalt"
+        "basalt",
+        "chalk"
     ],
     "uuid": "e2bf402c-6691-44cf-86e3-7a865cf9d49c",
     "versionLabel": "1.0",

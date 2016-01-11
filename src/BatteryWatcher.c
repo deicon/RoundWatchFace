@@ -1,9 +1,6 @@
 #include "BatteryWatcher.h"
 
 Layer *init_battery_watcher(GRect bounds) {
-
-	if (1==1) 
-		return NULL;
 	
 	s_battery_layer = text_layer_create(bounds);
 

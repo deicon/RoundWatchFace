@@ -2,7 +2,6 @@
 #include "BatteryWatcher.h"
 #include "AccelWatcher.h"
 #include "Compass.h"
-#include "BluetoothWatcher.h"
 
 static Window *s_main_window;
 static Layer *s_draw_layer;
@@ -85,12 +84,7 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
   int hours = clock_is_24h_style() ? 24 : 12;
   for (int h = 0; h < hours; h++) {
     calculate_pointer_end(h, hour_tick_length, &center, &hourHand1, hours, 0);
-    if (h % 3 == 0) {
-      calculate_pointer_end(h, hour_tick_length-14, &center, &hourHand2, hours, 0);
-    } else {
-      calculate_pointer_end(h, hour_tick_length-7, &center, &hourHand2, hours, 0);  
-    }
-    
+    calculate_pointer_end(h, hour_tick_length-7, &center, &hourHand2, hours, 0);
     graphics_context_set_fill_color(ctx, GColorWhite);
     graphics_context_set_stroke_color(ctx, GColorWhite);
     graphics_draw_line(ctx, hourHand1, hourHand2);
@@ -185,10 +179,6 @@ static void main_window_load(Window *window) {
     layer_add_child(window_layer, compassLayer);  
   }
   
-  Layer *btLayer = init_bluetooth_layer(GRect(PBL_IF_ROUND_ELSE(30,1), PBL_IF_ROUND_ELSE(19,5), 100, 100));
-  if (btLayer != NULL) {
-    layer_add_child(window_layer, btLayer);
-  }
   
 }
 
