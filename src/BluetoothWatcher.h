@@ -11,3 +11,5 @@ static GBitmap *s_bt_bitmap;
 Layer* init_bluetooth_layer(GRect bounds);
 
 void deinit_bluetooth_layer();
+
+void handle_connection_state(bool connected);
