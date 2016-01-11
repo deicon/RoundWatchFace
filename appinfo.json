@@ -14,7 +14,8 @@
                 "file": "images/Bluetooth-16.png",
                 "name": "BLUETOOTH_APLITE",
                 "targetPlatforms": [
-                    "aplite"
+                    "aplite",
+                    "basalt"
                 ],
                 "type": "bitmap"
             }
