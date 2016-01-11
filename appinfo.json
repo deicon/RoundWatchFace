@@ -11,6 +11,14 @@
     "resources": {
         "media": [
             {
+                "file": "images/Warning-Shield-24.png",
+                "name": "WARNING",
+                "targetPlatforms": [
+                    "aplite"
+                ],
+                "type": "bitmap"
+            },
+            {
                 "file": "images/Bluetooth-16.png",
                 "name": "BLUETOOTH_APLITE",
                 "targetPlatforms": [
