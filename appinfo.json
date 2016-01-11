@@ -11,8 +11,8 @@
     "resources": {
         "media": [
             {
-                "file": "images/Aeroplane-32.png",
-                "name": "PLANE_APLITE",
+                "file": "images/Bluetooth-16.png",
+                "name": "BLUETOOTH_APLITE",
                 "targetPlatforms": [
                     "aplite",
                     "basalt"
@@ -20,8 +20,8 @@
                 "type": "bitmap"
             },
             {
-                "file": "images/Bluetooth-16.png",
-                "name": "BLUETOOTH_APLITE",
+                "file": "images/Aeroplane-32.png",
+                "name": "PLANE_APLITE",
                 "targetPlatforms": [
                     "aplite",
                     "basalt"
