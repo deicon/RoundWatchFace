@@ -1,4 +1,4 @@
-#include "bluetoothWatcher.h"
+#include "BluetoothWatcher.h"
 
 Layer* init_bluetooth_layer(GRect bounds) {
 	s_bt_bitmap = gbitmap_create_with_resource(RESOURCE_ID_BLUETOOTH_APLITE);
