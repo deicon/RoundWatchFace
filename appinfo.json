@@ -9,7 +9,16 @@
     "longName": "24h Round WatchFace",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "images/Bluetooth-16.png",
+                "name": "BLUETOOTH_APLITE",
+                "targetPlatforms": [
+                    "aplite"
+                ],
+                "type": "bitmap"
+            }
+        ]
     },
     "sdkVersion": "3",
     "shortName": "24HWatchface",
