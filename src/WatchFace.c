@@ -2,6 +2,7 @@
 #include "BatteryWatcher.h"
 #include "AccelWatcher.h"
 #include "Compass.h"
+#include "BluetootWatcher.h" 
 
 static Window *s_main_window;
 static Layer *s_draw_layer;
@@ -178,6 +179,13 @@ static void main_window_load(Window *window) {
   if (compassLayer != NULL) {
     layer_add_child(window_layer, compassLayer);  
   }
+
+  Layer *btLayer = init_bluetooth_layer(GRect(PBL_IF_ROUND_ELSE(144-50,144-30), PBL_IF_ROUND_ELSE(19+20,25), 20, 20));
+  if (btLayer != NULL) {
+    layer_add_child(window_layer, btLayer);  
+  }
+
+
   
   
 }
