@@ -85,7 +85,12 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
   int hours = clock_is_24h_style() ? 24 : 12;
   for (int h = 0; h < hours; h++) {
     calculate_pointer_end(h, hour_tick_length, &center, &hourHand1, hours, 0);
-    calculate_pointer_end(h, hour_tick_length-7, &center, &hourHand2, hours, 0);
+    if (h % 3 == 0) {
+      calculate_pointer_end(h, hour_tick_length-11, &center, &hourHand2, hours, 0);
+    } else {
+      calculate_pointer_end(h, hour_tick_length-7, &center, &hourHand2, hours, 0);
+    }
+    
     graphics_context_set_fill_color(ctx, GColorWhite);
     graphics_context_set_stroke_color(ctx, GColorWhite);
     graphics_draw_line(ctx, hourHand1, hourHand2);
@@ -108,7 +113,12 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) { 
   
   static char buff[] = "00:00:00:";
-  strftime(buff, sizeof(buff), "%I:%M:%S", tick_time);
+  if (clock_is_24h_style()) {
+    strftime(buff, sizeof(buff), "%H:%M:%S", tick_time);
+  } else {
+    strftime(buff, sizeof(buff), "%I:%M:%S", tick_time);  
+  }
+  
 
   text_layer_set_text(s_time_layer, buff);
   
@@ -180,7 +190,7 @@ static void main_window_load(Window *window) {
     layer_add_child(window_layer, compassLayer);  
   }
 
-  Layer *btLayer = init_bluetooth_layer(GRect(bounds.size.w  / 2, bounds.size.h / 2, 100,100));
+  Layer *btLayer = init_bluetooth_layer(GRect(120, 5, 24,24));
   if (btLayer != NULL) {
     layer_add_child(window_layer, btLayer);  
   }
