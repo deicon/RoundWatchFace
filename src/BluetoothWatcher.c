@@ -22,17 +22,23 @@ void deinit_bluetooth_layer() {
 }
 
 void handle_connection_state(bool connected) {
+	set_bluetooth_logo(connected);
 	if (connected) {
-		bitmap_layer_set_bitmap(s_bluetooth_layer, s_bt_bitmap);
 		vibes_double_pulse();
 		dialog_message_window_pop();
 	} else {
-		bitmap_layer_set_bitmap(s_bluetooth_layer, s_plane_bitmap);
 		vibes_long_pulse();
 		dialog_message_window_push();
-
 		// if no wrist shake registered within 5 sec. remove window
 		app_timer_register(5000, app_timer_callback, NULL);
+	}
+}
+
+void set_bluetooth_logo(bool connected) {
+	if (connected) {
+		bitmap_layer_set_bitmap(s_bluetooth_layer, s_bt_bitmap);
+	} else {
+		bitmap_layer_set_bitmap(s_bluetooth_layer, s_plane_bitmap);
 	}
 }
 

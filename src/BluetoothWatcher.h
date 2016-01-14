@@ -15,4 +15,6 @@ void deinit_bluetooth_layer();
 
 void handle_connection_state(bool connected);
 
+void set_bluetooth_logo(bool connected);
+
 void app_timer_callback(void *data);

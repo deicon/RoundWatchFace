@@ -5,12 +5,8 @@
 #include "BluetoothWatcher.h" 
 #include "DialogMessageWindow.h"
 
-static Window *s_main_window;
-static Layer *s_draw_layer;
-static TextLayer *s_time_layer;
-static Layer *s_bg_layer;
 
-static GPath *s_minute_arrow, *s_hour_arrow;
+
 
 static void calculate_pointer_end(int16_t t, const int16_t length_from_center, GPoint *center, GPoint *point, long scale, long offset) {
   // rotate more if any other number than scale has to be on top 
@@ -35,9 +31,9 @@ static void bg_update_proc(Layer *layer, GContext *ctx) {
 static void hands_update_proc(Layer *layer, GContext *ctx) {
   
  
-  int16_t scale = 12*60; 
+  int16_t scale = _12HScaleFactor*60; 
   if ( clock_is_24h_style() ) {
-    scale = 24*60;
+    scale = _24HScaleFactor*60;
   }
 
   
@@ -83,7 +79,7 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
 */
 
   // draw hour lines
-  int hours = clock_is_24h_style() ? 24 : 12;
+  int hours = clock_is_24h_style() ? _24HScaleFactor : _12HScaleFactor;
   for (int h = 0; h < hours; h++) {
     calculate_pointer_end(h, hour_tick_length, &center, &hourHand1, hours, 0);
     if (h % 3 == 0) {
@@ -184,10 +180,6 @@ static void main_window_load(Window *window) {
     layer_add_child(window_layer, batteryLayer);
   }
 
-  Layer *compassLayer = init_compass_service(GRect(bounds.size.w / 2 , bounds.size.h / 2 + 30, 90, 90));
-  if (compassLayer != NULL) {
-    layer_add_child(window_layer, compassLayer);  
-  }
 
   Layer *btLayer = init_bluetooth_layer(GRect(120, 5, 24,24));
   if (btLayer != NULL) {
@@ -203,7 +195,7 @@ static void main_window_unload(Window *window) {
   text_layer_destroy(s_time_layer);
   deinit_battery_watcher();
   deinit_accel_tap_handler();
-  deinit_compass_service();
+
   gpath_destroy(s_minute_arrow);
   gpath_destroy(s_hour_arrow);
 }
