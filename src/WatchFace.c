@@ -30,6 +30,7 @@ static void bg_update_proc(Layer *layer, GContext *ctx) {
 /*Update Drawing Handler*/
 static void hands_update_proc(Layer *layer, GContext *ctx) {
   
+   graphics_context_set_antialiased(ctx, true);
  
   int16_t scale = _12HScaleFactor*60; 
   if ( clock_is_24h_style() ) {
@@ -53,10 +54,6 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
   //const int16_t hour_hand_length = PBL_IF_ROUND_ELSE((bounds.size.w / 2) - 60, bounds.size.w / 2);
   
   calculate_pointer_end((t->tm_sec*100)+ms/10, second_hand_length, &center, &secondHand, 60*100, 0);    
-  //calculate_pointer_end(t->tm_hour*60+t->tm_min, hour_hand_length, &center, &hourHand, scale, 0);    
-  //calculate_pointer_end(t->tm_min, minute_hand_length, &center, &minuteHand, 60, 0);    
-  
-  // draw seconds hand. This always goes one round per 60 secs
  
 // minute/hour hand
   graphics_context_set_fill_color(ctx, GColorWhite);
@@ -71,12 +68,6 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
   gpath_rotate_to(s_hour_arrow, (TRIG_MAX_ANGLE * (t->tm_hour*60+t->tm_min ))/ scale);
   gpath_draw_filled(ctx, s_hour_arrow);
   gpath_draw_outline(ctx, s_hour_arrow);
-  //graphics_draw_line(ctx, hourHand, center);
-  
-  /**graphics_context_set_fill_color(ctx, GColorWhite);
-  graphics_context_set_stroke_color(ctx, GColorWhite);
-  graphics_draw_line(ctx, secondHand, center);
-*/
 
   // draw hour lines
   int hours = clock_is_24h_style() ? _24HScaleFactor : _12HScaleFactor;
